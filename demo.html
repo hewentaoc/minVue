@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var obj = {
+            name:'hwt',
+            arr:['1sd','2'],
+            goods:{
+                sing:'song',
+            }
+        }    
+        let newObj = {};
+        function deepClone (newObj,obj) {
+            var attr = Object.prototype.toString;
+            for(let prop in obj){
+                if(obj.hasOwnProperty(prop)){
+                    if(obj[prop] != undefined && typeof obj[prop] == 'object'){
+                        if(attr.call(obj[prop]) == '[object Array]'){
+                            newObj[prop] = [];
+                        }else{
+                            newObj[prop] = {};
+                        }
+                        deepClone (newObj[prop],obj[prop])
+                    }else{
+                       newObj[prop] = obj[prop];
+                    }
+                }
+            }
+            return newObj;
+        }
+        // deepClone (newObj , obj)
+
+
+        /* webStorm */
+        function clone(obj){
+            if(obj instanceof Array){
+                return cloneArray(obj);
+            }else if(obj instanceof Object){
+                return cloneObject(obj);
+            }else{
+                return obj;
+            }
+       }
+
+        function cloneObject(obj) {
+            let result = {};
+            /* 得到obj中所有的属性 */
+            let objprops = Object.getOwnPropertyNames(obj);
+            for(let i = 0 ; i < objprops.length ; i++ ){
+                result[objprops[i]] = clone(obj[objprops[i]]);
+            }
+            return result;
+        }
+        function cloneArray(obj) {
+            let result = new Array(obj.length);
+            console.log(result);
+            for(let i = 0 ; i < obj.length ; i++ ){
+                result[i] = clone(obj[i]);
+            }
+            return result;
+        }
+        clone(obj);
+       
+       
+        
+        
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red{
+            color:red;
+        }
+        .blue{
+            color: blue;
+        }
+        .font{
+            font-weight: bold;
+        }
+        img{
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        {{name}}
+        <div>
+            {{name}}+{{age}}
+        </div>
+        <p>
+          {{obj.x}}
+          {{age}}
+        </p>
+        <ul>
+            <li v-for='(key,index) in list'>
+                姓名:{{key.a}} + {{index}}
+                年龄:{{key.b}}
+            </li>
+        </ul>
+        <input type="text" v-model='obj.x' v-on:keydown='keyFunc'>
+        <div v-bind:class='{blue}'>我是红色</div>
+        <div v-bind:class='color2'>我是蓝色</div>
+        <div v-bind:class="{red:obj.x > 0 , font:obj.y > 1}">我是什么颜色</div>
+        <img :src="img" alt="">
+    </div>
+
+
+    <script type="module">
+        import Due from './core/index.js';
+
+        window.myApp = new Due ({
+            el:"app",
+            data:{
+                img:'hwt.jpg',
+                color1:'red',
+                color2:'blue',
+                name:"hwt",
+                age: 23,
+                obj:{
+                    x:1,
+                    y:2
+                },
+                arr:[1,2,3],
+                list:[{a:'hwt',b:23}, {a:'wthe', b:24}],
+            },
+            created:function(){
+                console.log('我是created')
+            },
+            computed:{
+                demo:function(){
+
+                }
+            },
+            methods:{
+                keyFunc:function(){
+                    console.log('a',this);
+                }
+            }
+        })
+    
+    </script>
+
+
+</body>
+</html>
